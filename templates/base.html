@@ -1,0 +1,62 @@
+{% load static %}
+
+{% url 'home' as home_url %}
+{% url 'products:list_men' as products_list_men_url %}
+{% url 'products:featured_list' as products_featured_list_url %}
+{% url 'login' as login_url %}
+{% url 'logout' as logout_url %}
+{% url 'register' as register_url %} 
+{% url 'contact' as contact_url %}
+
+<!doctype html5>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %} <title>Ecommerce App</title> {% endblock %}
+    {% include "base/css.html" %}
+    {% block base_head %} {% endblock %}
+  </head>
+  <body class="">
+    <header class=" ml-3 mr-3 fixed-top d-flex justify-content-center">
+      {% include "base/navbar.html" %}
+    </header>
+
+    <div id="content" class="ml-3 mr-3 mb-5">
+      {% block content %}{% endblock %}
+    </div>
+
+    <div class="copyright btn-group dropup m-2">
+      <button type="button" class="btn dropdown-toggle bg-dark text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Information utiles
+      </button>
+        <div class="dropdown-menu bg-dark">
+          <!-- Dropdown menu links -->
+          <li class="nav-item {% if request.path ==  home_url %}active{% endif %}">
+            <a class="dropdown-item text-light" href="{% url 'home' %}">Femme</a>
+          </li>
+          <li class="nav-item {% if request.path ==  products_list_men_url %}active{% endif %}">
+            <a class="dropdown-item text-light" href="{{ products_list_men_url }}">Homme</a>
+          </li>
+          <li class="nav-item {% if request.path == contact_url %}active{% endif %}">
+            <a class="dropdown-item text-light" href="{{ contact_url }}">Contact</a>
+          </li>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item text-light" href="#">Separated link</a>
+        </div>
+  </div>
+
+    <div class="build btn m-2 bg-dark text-light">
+      <img class="" src="{% static 'img/icons/copyright/1x/outline_copyright_white_24dp.png' %}">
+      
+      <span class="text-light mx-1">|</span>
+      <a href=""><img class="" src="{% static 'img/icons/facebook/1x/outline_facebook_white_24dp.png' %}"></a>
+    </div>
+
+
+
+
+    {% include "base/js.html" %}
+  </body>
+</html>
