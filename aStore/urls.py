@@ -29,8 +29,9 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('register/', register_page, name='register'),
     path('contact/', contact_page, name='contact'),
-    path('', include(('products.urls', 'products'), namespace='products')),
-    path('', include(('search.urls', 'search'), namespace='search')),
+    path('products/', include(('products.urls', 'products'), namespace='products')),
+    path('search/', include(('search.urls', 'search'), namespace='search')),
+    path('carts/', include(('carts.urls', 'carts'), namespace='cart')),
 ]
 
 if settings.DEBUG:
