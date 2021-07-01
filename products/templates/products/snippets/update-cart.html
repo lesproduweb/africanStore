@@ -9,15 +9,22 @@
     </button>
     {% if in_cart %}
         <button type='submit' class="btn btn-warning btn-sm">
-            <img src="{% static 'img/icons/store/1x/outline_local_grocery_store_white_24dp.png' %}">
+            <img src="{% static 'img/icons/remove_shopping_card/1x/outline_remove_shopping_cart_black_24dp.png' %}">
             Retirer
         </button>
 <!--        <button  class='btn btn-link btn-sm' style="padding:0px;cursor: pointer;">Remove?</button>-->
     {% else %}
         {% if product in cart.products.all %}
-            In cart <button type='submit' class='btn btn-warning'>Retirer?</button>
+        <button type='submit' class='btn btn-danger'>
+
+            <img src="{% static 'img/icons/remove_card_shoppin_white/1x/outline_remove_shopping_cart_white_24dp.png' %}">
+            Retirer?
+        </button>
         {% else %}
-            <button type='submit'  class='btn btn-success'>Ajouter a la carte</button>
+            <button type='submit'  class='btn btn-success'>
+                <img src="{% static 'img/icons/add_card_shopping/1x/outline_add_shopping_cart_white_24dp.png' %}">
+                Ajouter a la carte
+            </button>
         {% endif %}
     {% endif %}
 </form>
