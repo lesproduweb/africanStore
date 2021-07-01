@@ -8,7 +8,7 @@ from carts.models import Cart
 
 
 class ProductFeaturedListView(ListView):
-    template_name = "products/product_list.html"
+    template_name = "products/featured-list.html"
 
     def get_queryset(self, *args, **kwargs):
         request = self.request

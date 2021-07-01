@@ -38,8 +38,9 @@ def login_page(request):
             return redirect("/")
         else:
             # Return an 'invalid login' error message.
-            ...
-            raise form.ValidationError("Authentification incorecte")
+            # ...
+            return redirect("/")
+            # raise form.ValidationError("Authentification incorecte")
     return render(request, "auth/login.html", context)
 
 

@@ -1,5 +1,5 @@
 
-    <div class="col-5 col-sm-4 col-md-3 bg-light card card-product-grid" >
+    <div class="col-6 col-sm-4 col-md-3 bg-light card card-product-grid" >
         <a href="{{ instance.get_absolute_url }}" class="text-decoration-none">
             {% if instance.image %}
                 <img src="{{ instance.image.url }}" alt="{{ instance.title }}" class="img-fluid"> </a>
@@ -7,20 +7,6 @@
 
         <figcaption class="info-wrap">
             <a href="{{ instance.get_absolute_url }}" class="text-decoration-none title">{{ instance.title }}</a>
-            <div class="price mt-1">${{ instance.price }}</div> <!-- price-wrap.// -->
+            <div class="price mt-1">{{ instance.price }} &euro;</div> <!-- price-wrap.// -->
         </figcaption>
     </div>
-<!--    <div class="col-md-3">-->
-<!--		<figure class="card card-product-grid">-->
-<!--			<a href="#" class="img-wrap">-->
-<!--				<img src="{{ instance.image.url }}">-->
-<!--			</a>-->
-<!--			<figcaption class="info-wrap">-->
-<!--				<a href="#" class="title">Fjällräven Kånken Backpack Blue Ridge</a>-->
-<!--				<div class="mt-2">-->
-<!--					<var class="price">$84.00</var> &lt;!&ndash; price-wrap.// &ndash;&gt;-->
-<!--					<a href="#" class="btn btn-sm btn-outline-primary float-right">Add to cart <i class="fa fa-shopping-cart"></i></a>-->
-<!--				</div> &lt;!&ndash; action-wrap.end &ndash;&gt;-->
-<!--			</figcaption>-->
-<!--		</figure> &lt;!&ndash; card // &ndash;&gt;-->
-<!--	</div>-->

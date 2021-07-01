@@ -1,42 +1,101 @@
 {% extends "base.html" %}
-
-
+{% url 'home' as home_url %}
 {% block content %}
-<h1>Cart</h1>
+<section class="section-content padding-y">
+	<div class="container">
+		<h1>Panier</h1>
+		<hr>
+		<div class="row">
+			<main class="col-md-9">
+				<div class="card">
 
-{% if cart.products.exists %}
-<table class="table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Product Name</th>
-      <th>Product Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for product in cart.products.all %}
-    <tr>
-      <th scope="row">{{ forloop.counter }}</th>
-      <td><a href='{{ product.get_absolute_url }}'>{{ product.title }}</a>
-        {% include 'products/snippets/update-cart.html' with product=product cart=cart in_cart=True %}
-      </td>
-      <td>{{ product.price }}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-      <td colspan="2"></td>
-      <td><b>Subtotal</b> {{ cart.subtotal }}</td>
-    </tr>
-    <tr>
-      <td colspan="2"></td>
-      <td><b>Total</b> {{ cart.total }}</td>
-    </tr>
-  </tbody>
-</table>
+					<table class="table table-borderless table-shopping-cart">
+						<thead class="text-muted">
+							<tr class="small text-uppercase">
+							  <th scope="col">Produit</th>
+							  <th scope="col" width="120">Quantité</th>
+							  <th scope="col" width="120">Prix</th>
+							  <th scope="col" class="text-right" width="200"> </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for product in cart.products.all %}
+								<tr>
+									<td>
+										<div class="d-inline">
+											<img src="{{ product.image.url }}" class="img-sm" height="50px">
+										</div>
+										<div class="d-inline">
+											<a href="{{ product.get_absolute_url }}" class="title text-dark">{{ product.title }}</a>
+											<div class="text-muted small">Taile: XL, couleur: blue,... <br> Marque: Gucci</div>
+										</div>
+									</td>
+									<td>
+										<input type="number" name="qté" class="form-control">
+									</td>
+									<td>
+										<div class="price-wrap">
+											<var class="price"> prix total </var>
+											<small class="text-muted"> {{ product.price }} &euro; chacun </small>
+										</div> <!-- price-wrap .// -->
+									</td>
+									<td class="">
+										{% include 'products/snippets/update-cart.html' with product=product cart=cart in_cart=True %}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<div class="card-body border-top">
+						<a href="#" class="btn btn-primary float-md-right"> Continue le shopping</a>
+						<a href="{{home_url}}" class="btn btn-success"> Poursuivre </a>
+					</div>
+				</div>
 
-{% else %}
-<p class='lead'>Cart is empty</p>
-{% endif %}
+				<div class="alert alert-success mt-3">
+					<p class="icontext"><i class="icon text-success fa fa-truck"></i> Livraison en Weekend</p>
+				</div>
+			</main>
+			<aside class="col-md-3">
+				<div class="card mb-3">
+					<div class="card-body">
+					<form>
+						<div class="form-group">
+							<label>Avez vous un coupon?</label>
+							<div class="input-group">
+								<input type="text" class="form-control" name="coupon" placeholder="Entrer le code">
+								<span class="input-group-append">
+									<button class="btn btn-primary">Appliquer</button>
+								</span>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-body">
+						<dl class="dlist-align">
+						  <dt>Prix total:</dt>
+						  <dd class="text-right">USD 568</dd>
+						</dl>
+						<dl class="dlist-align">
+						  <dt>A verser :</dt>
+						  <dd class="text-right">{{ cart.subtotal }} &euro;</dd>
+						</dl>
+						<dl class="dlist-align">
+						  <dt>Total avec frais de livraison:</dt>
+						  <dd class="text-right  h5"><strong>{{ cart.total }} &euro;</strong></dd>
+						</dl>
+						<hr>
+						<p class="text-center mb-3">
+							<img src="images/misc/payments.png" height="26">
+						</p>
 
+					</div> <!-- card-body.// -->
+				</div>  <!-- card .// -->
+			</aside>
+		</div>
 
+	</div>
+</section>
 {% endblock %}

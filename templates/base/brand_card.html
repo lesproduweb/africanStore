@@ -1,39 +1,47 @@
 {% load static %}
 {% url 'cart:home' as cart_url %}
+{% url 'contact' as contact_url %}
+{% url 'login' as login_url %}
+{% url 'register' as register_url %}
 
-<div class="other-link" style="display: inline-block">
-    <a href="{{ cart_url }}" class="text-light text-decoration-none px-1">
+<div class="brand-card d-flex flex-row justify-content-center" style="display: inline-block">
+    <a href="{{ cart_url }}" class="text-light text-decoration-none">
 
-      <img class="pl-2 pr-2" src="{% static 'img/icons/store/1x/outline_local_grocery_store_white_24dp.png' %}">
-      {{ request.session.cart_items }}
-      Panier
+      <img src="{% static 'img/icons/store/1x/outline_local_grocery_store_white_24dp.png' %}">
+      <small style="position: relative;top: -10px; left: -2px; color: red;"> {{ request.session.cart_items }} </small>
 
     </a>
-    <span class="text-light">|</span> 
-    <div class="dropdown show d-inline">
-      <span class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-        <img class="pl-2 pr-2" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}"> 
-        <span class="text-light">
-          {% if request.user.is_authenticated  %} 
-          {{ request.user }}
-          {% else %}
-          Se Connecter
-          {% endif %}
-        </span>
-      </span>
-    
-      <div class="dropdown-menu bg-dark my-2" aria-labelledby="dropdownMenuLink">
-        {% if request.user.is_authenticated %}
+    <span class="text-light  px-sm-3">|</span>
+    {% if request.user.is_authenticated %}
+
         <a class="nav-link text-light p-0" href="{{ logout_url }}">
-          <img class="pl-2 pr-2" src="{% static 'img/icons/logout/1x/outline_logout_white_24dp.png' %}">
-          logout
+          <img class="" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}">
+            <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">
+            {{ request.user }}
+            </span>
         </a>
-        {% else %}
+    {% else %}
         <a class="nav-link text-light p-0" href="{{ login_url }}">
-          <img class="pl-2 pr-2" src="{% static 'img/icons/login/1x/outline_login_white_24dp.png' %}">
-          login
+            <img class="" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}">
+            <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">
+            login
+             </span>
         </a>
-        {% endif %}
-      </div>
-    </div>
+    {% endif %}
+
+    <span class="text-light  px-sm-3">|</span>
+    <a href="#" class="text-light text-decoration-none">
+
+      <img src="{% static 'img/icons/heart/1x/outline_favorite_white_24dp.png' %}">
+
+    </a>
+    <span class="text-light  px-sm-3">|</span>
+    <a href="{% url 'contact' %}" class="text-light text-decoration-none">
+
+      <img class="" src="{% static 'img/icons/contact/1x/outline_contact_phone_white_24dp.png' %}">
+        <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">          contact
+        </span>
+
+     </a>
+
 </div>

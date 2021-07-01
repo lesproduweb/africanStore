@@ -20,9 +20,6 @@
     right: 0;
     top: 0px;
 }
-#content {
-    margin-top: 5rem;
-}
 nav.navbar.navbar-expand-lg{
     background: #F8F8F8;
 }
@@ -35,6 +32,9 @@ nav.navbar.navbar-expand-lg{
     top: 0;
     right: 0;
     z-index: 10000;
+}
+.brand-card{
+    /*background-color: #212529;*/
 }
 .copyright{
     position: fixed;

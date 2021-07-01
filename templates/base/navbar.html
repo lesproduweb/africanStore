@@ -1,40 +1,42 @@
 {% load static %}
 
 {% url 'home' as home_url %}
-{% url 'products:list_men' as products_list_men_url %}
-{% url 'products:featured_list' as products_featured_list_url %}
+{% url 'products:list' as products_list_url %}
+{% url 'products:featured' as products_featured_list_url %}
 {% url 'login' as login_url %}
 {% url 'register' as register_url %} 
 {% url 'contact' as contact_url %}
 
 
-{% include 'base/brand_card.html' %}
 
-<div class="container-fluid px-0">
-  <nav class="navbar navbar-expand-lg navbar-light p-0" style="height: 50px">
-          <div class="col-3 col-sm-2 mx-0 px-0 d-flex d-flex flex-row justify-content-end" >
-            <a class="navbar-brand p-2 mr-0 text-light bg-dark d-flex justify-content-center" href="{{ home_url }}" style="max-width: 100px;" >
+<div class="container-fluid">
+    <nav class="navbar  navbar-light fixed-top p-0" style="background: #1b1b1b; height: 56px;">
+            <div class="col-3 mx-0 px-0 d-flex d-flex flex-row justify-content-center" >
+            <a class="navbar-brand p-2 mr-0 text-light d-flex justify-content-center" href="{{ home_url }}" style="max-width: 100px;" >
               <h5 class="my-0">African</h5>
             </a>
-          </div>
-          <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>-->
-          <div class="col-9 col-sm-4 mx-0 px-2">
+        </div>
+<!--        <div class="col-0 mx-0 px-2">-->
+
+<!--        </div>-->
+        <div class="col-4 mx-0 px-2">
             {% include 'search/snippets/search-form.html' %}
-          </div>
-          <div class="col-12 col-sm-6 mx-0 px-0">
-            <ul class="navbar-nav bg-light mx-auto d-flex d-flex flex-row justify-content-center justify-content-sm-start">
-              <li class="nav-item {% if request.path ==  home_url %}active{% endif %}">
-                <a class="nav-link px-1" href="{% url 'home' %}">Femme</a>
-              </li>
-              <li class="nav-item {% if request.path ==  products_list_men_url %}active{% endif %}">
-                <a class="nav-link px-1" href="{{ products_list_men_url }}">Homme</a>
-              </li>
-              <li class="nav-item {% if request.path ==  products_featured_list_url %}active{% endif %}">
-                <a class="nav-link px-1" href="{{ products_featured_list_url }}">Nouveauté</a>
-              </li>
-            </ul>
-      </div>
-  </nav>
+        </div>
+        <div class="col-5 mx-0 px-0">{% include 'base/brand_card.html' %}</div>
+    </nav>
 </div>
+<div class="row fixed-top" style="margin-top: 56px;  ">
+    <div class="col-12 mx-0 px-0 navbar-light" >
+        <ul class="navbar-nav  bg-light d-flex flex-row justify-content-center m-0">
+            <li class="nav-item px-2 {% if request.path ==  home_url %}active{% endif %}" {% if request.path ==  home_url %}style="background:rgba(0,0,0,.55);" {% endif %}>
+                <a class="nav-link px-1" href="{% url 'home' %}">Marque</a>
+            </li>
+            <li class="nav-item px-2 {% if request.path ==  products_featured_list_url %}active {% endif %}" {% if request.path ==  products_featured_list_url %}style="background:rgba(0,0,0,.55);" {% endif %}>
+                <a class="nav-link px-1" href="{% url  'products:featured' %}">Boutique</a>
+            </li>
+            <li class="nav-item px-2 {% if request.path ==  products_new %}active{% endif %}" {% if request.path ==  products_new %}style="background:rgba(0,0,0,.55);" {% endif %}>
+                <a class="nav-link px-1" href="#">Nouveauté</a>
+            </li>
+        </ul>
+    </div>
+  </div>

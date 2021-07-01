@@ -19,11 +19,12 @@
     {% block base_head %} {% endblock %}
   </head>
   <body class="">
-    <header class=" ml-3 mr-3 fixed-top d-flex justify-content-center">
+
+    <header class="bg-light">
       {% include "base/navbar.html" %}
     </header>
 
-    <div id="content" class="ml-3 mr-3 mb-5">
+    <div id="content" class="ml-3 mr-3 mb-5" style="margin-top: 100px">
       {% block content %}{% endblock %}
     </div>
 

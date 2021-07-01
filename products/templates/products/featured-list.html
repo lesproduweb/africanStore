@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% url 'products:list' as products_list_url %}
 {% load static %}
 
 {% block base_head %}
@@ -6,20 +7,19 @@
 {% endblock %}
 
 {% block content %}
+
 <section class="section-name padding-y-sm">
 	<div class="container">
 
 		<header class="section-heading">
-			<a href="#" class="btn btn-outline-primary float-right">Voir tout</a>
-			<h3 class="section-title">Liste de produit pour Homme</h3>
+			<a href="{% url 'products:list' %}" class="btn btn-outline-primary float-right">Voir tout</a>
+			<h3 class="section-title">Boutique: Top produits</h3>
 		</header><!-- sect-heading -->
 
 
-		<div class="row">
+		<div class="my-3 row">
 			{% for obj in object_list %}
-                        <div class="col-md-3 mx-4">
-                                {% include "snippets/card.html" with instance=obj %}
-                        </div>
+					{% include "snippets/card.html" with instance=obj %}
 			{% endfor %}
 		</div> <!-- row.// -->
 
