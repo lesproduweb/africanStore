@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% url 'home' as home_url %}
+{% url 'products:list' as products_list_url %}
+{% url 'cart:checkout' as carts_checkout_url %}
 {% load static %}
 {% block content %}
 <section class="section-content padding-y">
 	<div class="container">
-		<h1>Panier</h1>
+		<h1>Panier </h1>
 		<hr>
 		<div class="row">
 			<main class="col-md-9">
@@ -48,11 +50,11 @@
 						</tbody>
 					</table>
 					<div class="card-body border-top">
-						<a href="#" class="btn btn-primary float-md-right">
+						<a href="{% url 'cart:checkout' %}" class="btn btn-primary float-md-right">
 							<img src="{% static 'img/icons/car_white/1x/outline_local_shipping_white_24dp.png' %}" height="">
 							Continue le shopping
 						</a>
-						<a href="{{home_url}}" class="btn btn-success">
+						<a href="{% url 'products:list' %}" class="btn btn-success">
 							<img src="{% static 'img/icons/add_card_shopping/1x/outline_add_shopping_cart_white_24dp.png' %}" height="">
 							Poursuivre
 						</a>

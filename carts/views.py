@@ -24,3 +24,6 @@ def cart_update(request):
         request.session['cart_items'] = cart_obj.products.count()
         # return redirect(product_obj.get_absolute_url())
     return redirect("cart:home")
+
+def checkout(request):
+    return render(request, "carts/checkout.html", {})
