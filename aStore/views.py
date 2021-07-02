@@ -39,7 +39,7 @@ def login_page(request):
         else:
             # Return an 'invalid login' error message.
             # ...
-            return redirect("/")
+            return render(request, "auth/login.html", context)
             # raise form.ValidationError("Authentification incorecte")
     return render(request, "auth/login.html", context)
 
