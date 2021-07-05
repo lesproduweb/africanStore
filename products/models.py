@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.dispatch import receiver
 
-from .utils import unique_slug_generator
+from aStore.utils import unique_slug_generator
 
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
