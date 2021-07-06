@@ -14,7 +14,7 @@
 	<div class="card mx-auto  bg-light" style="max-width:520px; margin-top:40px;">
       <article class="card-body">
 		<header class="mb-4"><h4 class="card-title">S'enregistrer</h4></header>
-		<form class="container" action="{% url 'login' %}" method="post"> {%  csrf_token %}
+		<form class="container" action="{% url 'register' %}" method="post"> {%  csrf_token %}
             {{ form.as_p }}
 
             <div class="form-group my-2">

@@ -2,6 +2,7 @@
 {% url 'cart:home' as cart_url %}
 {% url 'contact' as contact_url %}
 {% url 'login' as login_url %}
+{% url 'logout' as logout_url %}
 {% url 'register' as register_url %}
 
 <div class="brand-card d-flex flex-row justify-content-center" style="display: inline-block">
@@ -14,7 +15,7 @@
     <span class="text-light  px-sm-3">|</span>
     {% if request.user.is_authenticated %}
 
-        <a class="nav-link text-light p-0" href="{{ logout_url }}">
+        <a class="nav-link  {% if request.path == login_url %}active{% endif %} text-light p-0" href="{{ logout_url }}">
           <img class="" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}">
             <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">
             {{ request.user }}

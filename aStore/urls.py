@@ -18,16 +18,21 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.contrib.auth.views import LogoutView
 
 # from products.views import ProductListView, ProductDetailView, detail
-from .views import home_page, logout_view, login_page, register_page, contact_page
+from .views import home_page, contact_page
+from accounts.views import login_page, register_page, guest_register_view
+
 
 urlpatterns = [
     path('', home_page, name='home'),
     path('admin/', admin.site.urls, name='login'),
     path('login/', login_page, name='login'),
-    path('logout/', logout_view, name='logout'),
+    # path('logout/', logout_view, name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', register_page, name='register'),
+    path('register/guest', guest_register_view, name='guest_register'),
     path('contact/', contact_page, name='contact'),
     path('products/', include(('products.urls', 'products'), namespace='products')),
     path('search/', include(('search.urls', 'search'), namespace='search')),

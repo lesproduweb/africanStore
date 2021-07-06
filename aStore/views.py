@@ -7,6 +7,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 from .settings import BASE_DIR
+from carts.models import Cart
 
 
 def home_page(request):
@@ -15,13 +16,14 @@ def home_page(request):
     # return render(request, 'home_page.html', {"files": onlyfiles})
     return render(request, 'home_page.html', {})
 
-def logout_view(request):
-    logout(request)
-    # Redirect to a success page.
-    return redirect("/")
+# def logout_view(request):
+#     logout(request)
+#     # Redirect to a success page.
+#     return redirect("/")
 
 def login_page(request):
     form = LoginForm(request.POST or None)
+    # print(dir(form))
     context = {
         'form': form
     }
@@ -29,18 +31,15 @@ def login_page(request):
         username = form.cleaned_data.get("username")
         password = form.cleaned_data.get("password")
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None:
-            #print(request.user.is_authenticated)
             login(request, user)
-            # Redirect to a success page.
             context['form'] = LoginForm()
             return redirect("/")
         else:
+            print(form.errors.as_data())
             # Return an 'invalid login' error message.
             # ...
             return render(request, "auth/login.html", context)
-            # raise form.ValidationError("Authentification incorecte")
     return render(request, "auth/login.html", context)
 
 

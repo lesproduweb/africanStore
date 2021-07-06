@@ -76,10 +76,6 @@ class Product(models.Model):
 
     objects = ProductManager()
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = unique_slug_generator(self)
-    #     super().save(*args, **kwargs)
-
 
     def get_absolute_url(self):
         # return "/products/{slug}/".format(slug=self.slug)
