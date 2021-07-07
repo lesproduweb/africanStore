@@ -2,13 +2,11 @@
 
 <form class="form-inline m-0" method='GET' action='{% url "search:query" %}'>
 
-    <div class="input-group" style="min-width: 100px; max-width: 500px;">
-      <input type="text" name="q" class="form-control py-0" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2" value='{{ request.GET.q }}' style="    font-size: .6em;">
+    <div class="input-group" style="min-width: 100px; max-width: 500px; height: 40px">
+      <input type="text" name="q" class="form-control py-0" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2" value='{{ request.GET.q }}'>
 
-      <div class="input-group-append">
-        <button class="input-group-text p-0" id="basic-addon2" type="submit">
-          <img  class="pl-2 pr-2" src="{% static 'img/icons/search/1x/outline_search_white_24dp.png' %}">
+        <button class="input-group-text p-0 bg-dark" type="submit" style="height: 40px">
+          <img class="px-1 pl-sm-2 pr-sm-2" src="{% static 'img/icons/search/1x/outline_search_white_24dp.png' %}">
         </button>
-      </div>
     </div>
 </form>

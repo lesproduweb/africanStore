@@ -11,18 +11,40 @@
 
 <div class="container-fluid">
     <nav class="navbar  navbar-light fixed-top p-0" style="background: #1b1b1b; height: 56px;">
-            <div class="col-3 mx-0 px-0 d-flex d-flex flex-row justify-content-center" >
-            <a class="navbar-brand p-2 mr-0 text-light d-flex justify-content-center" href="{{ home_url }}" style="max-width: 100px;" >
-              <h5 class="my-0">African</h5>
-            </a>
-        </div>
-<!--        <div class="col-0 mx-0 px-2">-->
+        <div class="col-3 col-sm-5  col-md-6 m-0 p-0" >
+            <div class="row m-0 p-0">
+                <div class="col-0 col-sm-2">
 
-<!--        </div>-->
-        <div class="col-4 mx-0 px-2">
+                </div>
+                <div class="col-10 col-sm-8 m-0 p-0">
+                    <a class=" navbar-brand text-light m-0 px-2" href="{{ home_url }}" style="max-width: 100px;" >
+                    <b class="my-0">AfriShop</b>
+                </a>
+                </div>
+                <div class="col-2">
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-5 col-sm-4 mx-0 px-2">
             {% include 'search/snippets/search-form.html' %}
         </div>
-        <div class="col-5 mx-0 px-0">{% include 'base/brand_card.html' %}</div>
+        <div class="col-4 col-sm-3  col-md-2 mx-0 px-0 ">
+            <div class="row">
+                <div col-4>
+
+                </div>
+                <div col-4>
+                    {% include 'base/brand_card.html' %}
+                </div>
+                <div col-4>
+
+                </div>
+            </div>
+
+
+        </div>
     </nav>
 </div>
 <div class="row fixed-top" style="margin-top: 56px;  ">

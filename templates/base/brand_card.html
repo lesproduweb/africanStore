@@ -5,44 +5,44 @@
 {% url 'logout' as logout_url %}
 {% url 'register' as register_url %}
 
-<div class="brand-card d-flex flex-row justify-content-center" style="display: inline-block">
-    <a href="{{ cart_url }}" class="text-light text-decoration-none">
+<div class="d-flex flex-row  justify-content-around" style="display: inline-block">
+        <a href="{{ cart_url }}" class="text-light text-decoration-none">
+          <img src="{% static 'img/icons/store/1x/outline_local_grocery_store_white_24dp.png' %}">
+          <small class="text-success" style="position: relative;top: -10px; left: -2px;"> {{ request.session.cart_items }} </small>
+        </a>
+<!--    <span class="text-light  px-sm-3">|</span   >-->
+    <div class="d-flex flex-column align-items-center">
+        {% if request.user.is_authenticated %}
+            <a class="nav-link  {% if request.path == login_url %}active{% endif %} text-light p-0" href="{{ logout_url }}">
+              <img class="" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}">
+            </a>
+<!--            <span class="text-light px-1" >-->
+<!--                {{ request.user }}-->
+<!--            </span>-->
+        {% else %}
+            <a class="nav-link text-light p-0" href="{{ login_url }} " style="position: relative;">
+                <img class="" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}">
+<!--                <span class="text-light px-1" >-->
+<!--                    login-->
+<!--                 </span>-->
+            </a>
 
-      <img src="{% static 'img/icons/store/1x/outline_local_grocery_store_white_24dp.png' %}">
-      <small style="position: relative;top: -10px; left: -2px; color: red;"> {{ request.session.cart_items }} </small>
+        {% endif %}
+    </div>
+
+<!--    <span class="text-light  px-sm-3">|</span>-->
+    <a href="#" class="text-light text-decoration-none pl-2 "   >
+
+      <img src="{% static 'img/icons/heart/white-24dp/1x/outline_favorite_border_white_24dp.png' %}">
 
     </a>
-    <span class="text-light  px-sm-3">|</span>
-    {% if request.user.is_authenticated %}
+<!--    <span class="text-light  px-sm-3">|</span>-->
+<!--    <a href="{% url 'contact' %}" class="text-light text-decoration-none">-->
 
-        <a class="nav-link  {% if request.path == login_url %}active{% endif %} text-light p-0" href="{{ logout_url }}">
-          <img class="" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}">
-            <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">
-            {{ request.user }}
-            </span>
-        </a>
-    {% else %}
-        <a class="nav-link text-light p-0" href="{{ login_url }}">
-            <img class="" src="{% static 'img/icons/account/1x/outline_person_outline_white_24dp.png' %}">
-            <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">
-            login
-             </span>
-        </a>
-    {% endif %}
+<!--      <img class="" src="{% static 'img/icons/contact/1x/outline_contact_phone_white_24dp.png' %}">-->
+<!--        <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">          contact-->
+<!--        </span>-->
 
-    <span class="text-light  px-sm-3">|</span>
-    <a href="#" class="text-light text-decoration-none">
-
-      <img src="{% static 'img/icons/heart/1x/outline_favorite_white_24dp.png' %}">
-
-    </a>
-    <span class="text-light  px-sm-3">|</span>
-    <a href="{% url 'contact' %}" class="text-light text-decoration-none">
-
-      <img class="" src="{% static 'img/icons/contact/1x/outline_contact_phone_white_24dp.png' %}">
-        <span class="text-light px-1" style="font-size: .5em; position: relative;bottom: -7px; left: 0;">          contact
-        </span>
-
-     </a>
+<!--     </a>-->
 
 </div>
