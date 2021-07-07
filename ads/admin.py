@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Ad
+
+
+class AdAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'slug']
+    class Meta:
+        model = Ad
+
+admin.site.register(Ad, AdAdmin)

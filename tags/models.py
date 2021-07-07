@@ -3,6 +3,7 @@ from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
 
 from products.models import Product
+from ads.models import Ad
 from aStore.utils import unique_slug_generator
 
 
@@ -12,6 +13,7 @@ class Tag(models.Model):
     timestamp   = models.DateTimeField(auto_now_add=True)
     active      = models.BooleanField(default=True)
     products    = models.ManyToManyField(Product, blank=True)
+    ads = models.ManyToManyField(Ad, blank=True)
 
     def __str__(self):
         return self.title

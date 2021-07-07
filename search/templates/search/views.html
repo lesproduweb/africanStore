@@ -7,23 +7,39 @@
 
 {% block content %}
 <div class="container">
-        {% if query %}
-            <div class="col-12">
-                Recherches pour <b> {{ query }}</b>
-                <hr/>
-            </div>
-        {% else %}
-            <div class="col-12 col-md-6 mx-auto py-2">
-                {% include 'search/snippets/search-form.html' %}
-            </div>
-            <div class="col-12">
-                <hr/>
-            </div>
-        {% endif %}
+    {% if query %}
+        <div class="col-12">
+            Recherches pour <b> {{ query }}</b>
+        </div>
+    {% else %}
+        <div class="col-12 col-md-6 mx-auto py-2">
+            {% include 'search/snippets/search-form.html' %}
+        </div>
+        <div class="col-12">
+            <hr/>
+        </div>
+    {% endif %}
+    <hr>
+    {% if products_result %}
+        <h5> Dans la boutiques</h5>
         <div class="my-3 row">
-			{% for obj in object_list %}
-					{% include "snippets/card.html" with instance=obj %}
-			{% endfor %}
-		</div>
+            {% if products_result %}
+                {% for obj in object_list %}
+                        {% include "snippets/card.html" with instance=obj %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+    <hr>
+    {% if ads_result %}
+        <h5> Dans les annonces</h5>
+        <div class="my-3 row">
+            {% if ads_result %}
+                {% for obj in ads_result %}
+                        {% include "ads/snippets/card_ad.html" with instance=obj %}
+                {% endfor %}
+            {% endif %}
+        </div>
+{% endif %}
 </div>
 {% endblock %}

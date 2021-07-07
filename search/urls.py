@@ -3,9 +3,9 @@ from django.urls import path, include, re_path
 
 
 from .views import (
-        SearchProductView,
+        SearchView,
         )
 
 urlpatterns = [
-    path('', SearchProductView.as_view(), name='query'),
+    path('', SearchView.as_view(), name='query'),
 ]

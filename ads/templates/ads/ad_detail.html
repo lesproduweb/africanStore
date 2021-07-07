@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block base_head %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="card">
+	<div class="card-body">
+			<label class="text-muted">{{ object.timestamp }}</label>
+			<div class="row">
+				<div class="col-12 text-center">
+					<div class="card" style="max-height: 500px">
+						<img src="{{ object.image.url }}">
+					</div>
+				</div>
+				<main class="col-md-6">
+					<article>
+<!--						<a href="#" class="text-primary btn-link">Catégorie</a>-->
+						<h3 class="title">{{ object.title }}</h3>
+						<div class="d-flex">
+							<ul class="list-inline">
+								<li style="width:60%" class="stars-active">
+									<img src={% static "img/other/stars-active.svg" %} alt="">
+								</li>
+<!--								<li>-->
+<!--									<img src="bootstrap-ecommerce-html/images/icons/starts-disable.svg" alt="">-->
+<!--								</li>-->
+							</ul>
+							<span class="label-rating mr-3 text-muted">7/10</span>
+							<a href="#" class="btn-link  mr-3 text-muted">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+								  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+								</svg>
+								Garder pour plus tard
+							</a>
+						</div>
+						<hr>
+						{% if instance.price %}
+							<span> {{ instance.price }} &euro; </span>
+						{% endif %}
+
+						<hr>
+            			{% include 'ads/snippets/contact_ad.html' with ad=object %}
+					</article>
+				</main>
+			</div>
+	</div>
+
+</article>
+<div class="m-3">
+	<h6>Description</h6>
+	{{ object.description }}
+	<ul class="list-dots mb-0">
+		<li>Fabriqué en Russie</li>
+		<li>Cuir de loup </li>
+		<li>Fond en caoutchouc</li>
+		<li>Couleur bleu foncé</li>
+	</ul>
+
+</div>
+
+{% endblock %}
