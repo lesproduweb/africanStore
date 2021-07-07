@@ -1,12 +1,20 @@
 
-    <div class="col-6 col-sm-4 col-md-3 bg-light card card-product-grid" >
-        <a href="{{ instance.get_absolute_url }}" class="text-decoration-none">
-            {% if instance.image %}
-                <img src="{{ instance.image.url }}" alt="{{ instance.title }}" class="img-fluid"> </a>
-            {% endif %}
+    <div class="col-6 col-sm-4 col-md-3 " >
+         <a href="{{ instance.get_absolute_url }}" class="text-decoration-none" >
+            <div class="m-2 bg-light border d-flex flex-column align-items-center justify-content-around" style=" min-width: 165px; min-height: 275px">
 
-        <figcaption class="info-wrap">
-            <a href="{{ instance.get_absolute_url }}" class="text-decoration-none title">{{ instance.title }}</a>
-            <div class="price mt-1">{{ instance.price }} &euro;</div> <!-- price-wrap.// -->
-        </figcaption>
+                <div class="d-flex justify-content-center align-items-center">
+                    {% if instance.image %}
+                        <img src="{{ instance.image.url }}" alt="{{ instance.title }}" class="img-fluid" style="max-height: 170px"> </a>
+                    {% endif %}
+                </div>
+                <div>
+                    <span> {{ instance.title|linebreaks|truncatewords:5 }} </span>
+                </div>
+                <div>
+                    <span> {{ instance.price }} &euro; </span>
+                </div>
+            </div>
+         </a>
+
     </div>

@@ -9,17 +9,15 @@
 <section class="section-name padding-y-sm">
 	<div class="container">
 
-		<header class="section-heading">
+		<header class="section-heading my-2">
 			<h3 class="section-title">Boutique</h3>
-		</header><!-- sect-heading -->
+		</header>
 
-
-		<div class="my-3 row">
+		<div class="my-2 row">
 			{% for obj in object_list %}
-					{% include "snippets/card.html" with instance=obj %}
+				{% include "snippets/card.html" with instance=obj %}
 			{% endfor %}
-		</div> <!-- row.// -->
-
-	</div><!-- container // -->
+		</div>
+	</div>
 </section>
 {% endblock %}

@@ -34,9 +34,11 @@ urlpatterns = [
     path('register/', register_page, name='register'),
     path('register/guest', guest_register_view, name='guest_register'),
     path('contact/', contact_page, name='contact'),
+
     path('products/', include(('products.urls', 'products'), namespace='products')),
     path('search/', include(('search.urls', 'search'), namespace='search')),
     path('carts/', include(('carts.urls', 'carts'), namespace='cart')),
+    path('ads/', include(('ads.urls', 'ads'), namespace='ads')),
 ]
 
 if settings.DEBUG:
