@@ -38,12 +38,17 @@ def login_page(request):
         password  = form.cleaned_data.get("password")
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            # if request.method == 'POST':
+            #     if request.session.test_cookie_worked():
+            #         request.session.delete_test_cookie()
             login(request, user)
+            #         return HttpResponse("You're logged in.")
+            #     else:
+            #         return HttpResponse("Please enable cookies and try again.")
+            # request.session.set_test_cookie()
+
             try:
-                print("Ici")
-                print(request.session['guest_email_id'])
                 del request.session['guest_email_id']
-                print(request.session['guest_email_id'])
             except:
                 pass
             if is_safe_url(redirect_path, request.get_host()):

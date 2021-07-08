@@ -1,125 +1,132 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<!-- order_id        = models.CharField(max_length=120, blank=True) # AB31DE3-->
-<!--    # billing_profile = ?-->
-<!--    # shipping_address-->
-<!--    # billing_address -->
-<!--    cart            = models.ForeignKey(Cart, on_delete=models.CASCADE)-->
-<!--    status          = models.CharField(max_length=120, default='created', choices=ORDER_STATUS_CHOICES)-->
-<!--    shipping_total  = models.DecimalField(default=5.99, max_digits=100, decimal_places=2)-->
-<!--    total           = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)-->
-{{ object.order_id }} -- {{ object.cart }}
+
+<!--{{ object.cart }}-->
 {% if not billing_profile %}
-<div class='row text-center'>
-<div class='col-12 col-md-6'>
-    <p class='lead'>Login</p>
-    {% include 'accounts/snippets/form.html' with form=login_form next_url=request.build_absolute_uri %}
-</div>
-<div class='col-12 col-md-6'>
-    Continue as Guest
+    <div class='row text-center'>
+        <div class='col-12 col-md-6'>
+            {% include 'accounts/snippets/form.html' with form=login_form next_url=request.build_absolute_uri %}
+        </div>
+        <div class='col-12 col-md-6'>
 
-    {% url "guest_register" as guest_register_url %}
-    {% include 'accounts/snippets/form.html' with form=guest_form next_url=request.build_absolute_uri action_url=guest_register_url %}
-</div>
 
-</div>
+            {% url "guest_register" as guest_register_url %}
+            {% include 'accounts/snippets/form_guest.html' with form=guest_form next_url=request.build_absolute_uri action_url=guest_register_url %}
 
-</div>
 
-</div>
-
+        </div>
+    </div>
 {% else %}
+    {% if not object.shipping_address %}
+        {% if address_qs.exists %}
+             <div class='row'>
+                <div class='col-12 col-md-6'>
+                    {% url "checkout_address_create" as checkout_address_create %}
+                    {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkout_address_create address_type='shipping' name='Livraison' %}'
+                </div>
+                <div class='col-12 col-md-6'>
+                    {% url 'checkout_address_reuse' as checkout_address_reuse %}
+                    {% include 'addresses/prev_addresses.html' with address_qs=address_qs next_url=request.build_absolute_uri address_type='shipping' action_url=checkout_address_reuse name='Livraison' %}
+                </div>
+            </div>
+        {% else %}
+             <div class='row'>
+                <div class='col-12'>
 
 
-<div class=" container-fluid my-5 ">
-    <div class="row justify-content-center ">
-        <div class="col-xl-10">
-            <div class="card shadow-lg ">
-                <div class="row p-2 mt-3 justify-content-between mx-sm-2">
-                    <div class="col-12 col-sm-6">
-                        <p class="text-muted space mb-0 shop"> Facture No : <b>{{object.order_id}}</b></p>
-                        <p class="text-muted space mb-0 shop">Lieu de facturation: </p>
-                    </div>
-                    <div class="col-12 col-sm-6 my-3    ">
-                        <div class="row justify-content-start ">
-                            <div class="col">
-<!--                                <img class="irc_mi img-fluid cursor-pointer " src="https://i.imgur.com/jFQo2lD.png" width="70" height="70">-->
-                                <a class="navbar-brand p-2 mr-0 text-light bg-dark d-flex justify-content-center" href="{{ home_url }}" >
-                                    <h5 class="my-0"> African Store </h5>
-                                </a>
+                    {% url "checkout_address_create" as checkout_address_create %}
+                    {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkout_address_create address_type='shipping' %}'
+
+
+                </div>
+            </div>
+        {% endif %}
+    {% elif not object.billing_address %}
+        {% if address_qs.exists %}
+             <div class='row'>
+                <div class='col-12 col-md-6'>
+                    {% url "checkout_address_create" as checkout_address_create %}
+                    {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkout_address_create address_type='billing' name='Facturation' %}
+                </div>
+                <div class='col-12 col-md-6'>
+                    {% url 'checkout_address_reuse' as checkout_address_reuse %}
+                    {% include 'addresses/prev_addresses.html' with address_qs=address_qs next_url=request.build_absolute_uri address_type='shipping' action_url=checkout_address_reuse name='Livraison' %}
+                </div>
+            </div>
+        {% else %}
+             <div class='row'>
+                <div class='col-12'>
+                    {% url "checkout_address_create" as checkout_address_create %}
+                    {% include 'addresses/form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkout_address_create address_type='billing' name='Facturation' %}
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container-fluid my-5 row justify-content-center">
+        <div class="card shadow-lg" style="max-width: 900px">
+            <div class="row p-2 mt-3 justify-content-between mx-sm-2">
+                <div class="col-12 col-sm-12 my-3 d-flex justify-content-center ">
+                    {% include 'base/logo.html' %}
+                </div>
+                <div class="col-12 col-sm-12">
+                    <p class="text-muted space mb-0 shop">No : <b>{{object.order_id}}</b></p>
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="col-md-5">
+                    <div>
+                        <p class="card-header card-text text-muted mt-4 pt-2 space">LIVRAISON <small>  INFO</small></p>
+                        <hr class="my-0">
+                        <div class="row justify-content-between">
+                            <div class="col-auto mt-0">
+                                <p>Addresse de livraison: <b>{{ object.shipping_address.address_line_1 }}</b></p>
+                                {% if object.shipping_address.address_line_2 %}
+                                    <p>Addresse de livraison secondaire: <b>{{ object.shipping_address.address_line_2 }}</b></p>
+                                {% endif %}
+                                {% if object.shipping_address.city %}
+                                    <p>Ville: <b>{{ object.shipping_address.city }}</b></p>
+                                {% endif %}
+                                {% if object.shipping_address.state %}
+                                    <p>Region: <b>{{ object.shipping_address.state }}</b></p>                                        {% endif %}
+                                {% if object.shipping_address.postal_code %}
+                                    <p>Code Postal: <b>{{ object.shipping_address.postal_code }}</b></p>
+                                {% endif %}
+                                {% if object.shipping_address.country %}
+                                    <p>Pays: <b>{{ object.shipping_address.country }}</b></p>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
-                    <div class="col-auto">
-<!--                        <img class="irc_mi img-fluid bell" src="https://i.imgur.com/uSHMClk.jpg" width="30" height="30">-->
+                    <div>
+                        <p class="text-muted mb-2 card-header">PAYMENT <small>INFO</small></p>
+                        <div class="row justify-content-between">
+                            <p>Addresse de livraison: <b>{{ object.billing_address.address_line_1 }}</b></p>
+                            {% if object.billing_address.address_line_2 %}
+                                <p>Addresse de livraison secondaire: <b>{{ object.billing_address.address_line_2 }}</b></p>
+                            {% endif %}
+                            {% if object.billing_address.city %}
+                                <p>Ville: <b>{{ object.billing_address.city }}</b></p>
+                            {% endif %}
+                            {% if object.billing_address.state %}
+                                <p>Region: <b>{{ object.billing_address.state }}</b></p>                                        {% endif %}
+                            {% if object.billing_address.postal_code %}
+                                <p>Code Postal: <b>{{ object.billing_address.postal_code }}</b></p>
+                            {% endif %}
+                            {% if object.billing_address.country %}
+                                <p>Pays: <b>{{ object.billing_address.country }}</b></p>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-<!--                <div class="row mx-auto justify-content-center text-center">-->
-<!--                    <div class="col-12 mt-3 ">-->
-<!--                        <nav aria-label="breadcrumb" class="second ">-->
-<!--                            <ol class="breadcrumb indigo lighten-6 first ">-->
-<!--                                <li class="breadcrumb-item font-weight-bold "><a class="black-text text-uppercase " href="#"><span class="mr-md-3 mr-1">Boutique</span></a><i class="fa fa-angle-double-right " aria-hidden="true"></i></li>-->
-<!--                                <li class="breadcrumb-item font-weight-bold"><a class="black-text text-uppercase" href="#"><span class="mr-md-3 mr-1">Pannier</span></a><i class="fa fa-angle-double-right text-uppercase " aria-hidden="true"></i></li>-->
-<!--                                <li class="breadcrumb-item font-weight-bold"><a class="black-text text-uppercase active-2" href="#"><span class="mr-md-3 mr-1">Commande</span></a></li>-->
-<!--                            </ol>-->
-<!--                        </nav>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="row justify-content-around">
-                    <div class="col-md-5">
-                        <div class="card border-0">
-<!--                            <div class="card-header pb-0">-->
-<!--                                <h2 class="card-title space ">Checkout</h2>-->
-<!--                            </div>-->
-                            <div class="card-body">
-                                <p class="card-text text-muted mt-4 space">LIVRAISON <small>  INFO</small></p>
-                                <hr class="my-0">
-                                <div class="row justify-content-between">
-                                    <div class="col-auto mt-0">
-                                        <p><b>{{ object.shipping_address }}</b></p>
-                                    </div>
-                                    <div class="col-auto">
-                                        <p><b>{{ object.shipping_address.email }}</b> </p>
-                                    </div>
-                                </div>
-                                <p class="text-muted mb-2">PAYMENT <small>INFO</small></p>
-                                <hr class="mt-0">
-                                <div class="row mt-4">
-                                    <div class="row justify-content-between">
-                                        <div class="col-auto mt-0">
-                                            <p><b>{{ object.billing_address }}</b></p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <p><b>{{ object.billing_address.email }}</b> </p>
-                                        </div>
-                                    </div>
-                                </div>
-<!--                                <div class="form-group"> <label for="NAME" class="small text-muted mb-1">NAME ON CARD</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="Nom"> </div>-->
-<!--                                <div class="form-group"> <label for="NAME" class="small text-muted mb-1">CARD NUMBER</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="4534 5555 5555 5555"> </div>-->
-<!--                                <div class="row no-gutters">-->
-<!--                                    <div class="col-sm-6 pr-sm-2">-->
-<!--                                        <div class="form-group"> <label for="NAME" class="small text-muted mb-1">VALID JUSQU</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="06/21"> </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-sm-6">-->
-<!--                                        <div class="form-group"> <label for="NAME" class="small text-muted mb-1">CVC CODE</label> <input type="text" class="form-control form-control-sm" name="NAME" id="NAME" aria-describedby="helpId" placeholder="183"> </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-                                <div class="row mb-md-5">
-                                    <div class="col"> <button type="button" name="" id="" class="btn btn-lg btn-block btn-success ">Terminer l'achat</button> </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="card border-0 ">
-                            <div class="card-header card-2">
-                                <p class="card-text text-muted mt-md-4 mb-2 space"><b>VOTRE COMMANDE</b> </p>
-                                <hr class="my-2">
-                            </div>
-                            <div class="card-body pt-0">
+                <div class="col-md-5">
+                    <div >
+                            <p class="card-header card-text text-muted mt-4 pt-2 space"><b>VOTRE COMMANDE</b> </p>
 
-                                {% for product in object.cart.products.all %}
+                        <div class="card-body pt-2">
+
+                            {% for product in object.cart.products.all %}
                                 <div class="row justify-content-between">
                                     <div class="col-auto col-md-7">
                                         <div class="media flex-column flex-sm-row">
@@ -141,48 +148,54 @@
                                         <small class="text-muted">par unité</small>
                                     </div>
                                 </div>
-                                <hr class="my-2">
-                                {% endfor %}
+                                {% if not forloop.last %} <hr> {% endif %}
+                            {% endfor %}
 
-                                <div class="row ">
-                                    <div class="col">
-                                        <div class="row justify-content-between">
-                                            <div class="col-4">
-                                                <p class="mb-1"><b>Subtotal</b></p>
-                                            </div>
-                                            <div class="flex-sm-col col-auto">
-                                                <p class="mb-1"><b>{{ object.cart.total }} &euro;</b></p>
-                                            </div>
+                            <div class="row ">
+                                <div class="col">
+                                    <div class="row justify-content-between">
+                                        <div class="col-4">
+                                            <p class="mb-1"><b>Subtotal</b></p>
                                         </div>
-                                        <div class="row justify-content-between">
-                                            <div class="col">
-                                                <p class="mb-1"><b>Frais livraisn</b></p>
-                                            </div>
-                                            <div class="flex-sm-col col-auto">
-                                                <p class="mb-1"><b>{{ shipping_total }} &euro;</b></p>
-                                            </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b>{{ object.cart.total }} &euro;</b></p>
                                         </div>
-                                        <div class="row justify-content-between">
-                                            <div class="col-4">
-                                                <p><b>Total</b></p>
-                                            </div>
-                                            <div class="flex-sm-col col-auto">
-                                                <p class="mb-1"><b>{{ object.total }} &euro;</b></p>
-                                            </div>
-                                        </div>
-                                        <hr class="my-0">
                                     </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col">
+                                            <p class="mb-1"><b>Frais livraisn</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b>{{ shipping_total }} &euro;</b></p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-4">
+                                            <p><b>Total</b></p>
+                                        </div>
+                                        <div class="flex-sm-col col-auto">
+                                            <p class="mb-1"><b>{{ object.total }} &euro;</b></p>
+                                        </div>
+                                    </div>
+                                    <hr class="my-0">
                                 </div>
-<!--                                <div class="row mb-5 mt-4 ">-->
-<!--                                    <div class="col-md-7 col-lg-6 mx-auto"><button type="button" class="btn btn-block btn-outline-primary btn-lg">ADD GIFT CODE</button></div>-->
-<!--                                </div>-->
                             </div>
+    <!--                                <div class="row mb-5 mt-4 ">-->
+    <!--                                    <div class="col-md-7 col-lg-6 mx-auto"><button type="button" class="btn btn-block btn-outline-primary btn-lg">ADD GIFT CODE</button></div>-->
+    <!--                                </div>-->
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row mb-md-5">
+                <div class="col">
+                            <form class='form' method='POST' action="{% url 'carts:success' %}">{% csrf_token %}
+                                <button type="submit" name="" id="" class="btn btn-lg btn-block btn-success ">Terminer l'achat</button>
+                            </form>
+                        </div>
+            </div>
         </div>
     </div>
-</div>
+    {% endif %}
 {% endif %}
 {% endblock %}

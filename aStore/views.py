@@ -14,6 +14,9 @@ def home_page(request):
     #print(f"base dir: {BASE_DIR}")
     # onlyfiles = ["img/"+f for f in listdir("/home/dev/Black-Maket/blackmaket/src//static_my_project/img") if isfile(join("/home/dev/Black-Maket/blackmaket/src/static_my_project/img", f))]
     # return render(request, 'home_page.html', {"files": onlyfiles})
+    print(request.session.get("name"))
+
+    print(request.session.session_key)
     return render(request, 'home_page.html', {})
 
 # def logout_view(request):

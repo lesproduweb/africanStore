@@ -34,10 +34,17 @@ class CartManager(models.Manager):
                 user_obj = user
         return self.model.objects.create(user=user_obj)
 
+    def new(self, user=None):
+        user_obj = None
+        if user is not None:
+            if user.is_authenticated:
+                user_obj = user
+        return self.model.objects.create(user=user_obj)
+
 
 
 class Cart(models.Model):
-    user        = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     products    = models.ManyToManyField(Product, blank=True)
     subtotal    = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
     total       = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
