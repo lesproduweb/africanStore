@@ -1,0 +1,80 @@
+{% extends "details_base.html" %}
+{% load static %}
+
+{% block base_head %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+{% block detail %}
+<article class="card">
+	<div class="card-body">
+			<div class="row">
+				<aside class="col-md-6">
+						<article class="gallery-wrap text-center">
+							<div class="card img-big-wrap">
+								<a href="#"> <img src="{{ object.image.url }}"></a>
+							</div> <!-- card img-big-wrap.// -->
+<!--							<div class="thumbs-wrap">-->
+<!--								<a href="#" class="item-thumb"> <img src=""></a>-->
+<!--								<a href="#" class="item-thumb"> <img src=""></a>-->
+<!--								<a href="#" class="item-thumb"> <img src=""></a>-->
+<!--								<a href="#" class="item-thumb"> <img src=""></a>-->
+<!--							</div> &lt;!&ndash; thumbs-wrap .// &ndash;&gt;-->
+						</article> <!-- gallery-wrap .end// -->
+				</aside>
+				<main class="col-md-6">
+					<article>
+<!--						<a href="#" class="text-primary btn-link">Catégorie</a>-->
+						<h3 class="title">{{ object.title }}</h3>
+						<div class="d-flex">
+							<ul class="list-inline">
+								<li style="width:60%" class="stars-active">
+									<img src={% static "img/other/stars-active.svg" %} alt="">
+								</li>
+<!--								<li>-->
+<!--									<img src="bootstrap-ecommerce-html/images/icons/starts-disable.svg" alt="">-->
+<!--								</li>-->
+							</ul>
+							<span class="label-rating mr-3 text-muted">7/10</span>
+							<a href="#" class="btn-link  mr-3 text-muted">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+								  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+								</svg>
+								Garder pour plus tard
+							</a>
+						</div>
+
+						<hr>
+            			{% include 'products/snippets/update-cart.html' with product=object cart=cart %}
+
+						<div class="mb-3">
+							<var class="price h4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">230,00 &euro;</font></font></var> <br>
+						</div>
+						<hr>
+
+						<div class="form-group">
+							<label class="text-muted">Tailles disponibles</label>
+						</div>
+
+					</article>
+				</main> <!-- col.// -->
+			</div> <!-- row.// -->
+	</div> <!-- card-body.// -->
+
+</article>
+<div class="mb-3">
+	<h6>Courte description</h6>
+
+	<ul class="list-dots mb-0">
+		<li>Fabriqué en Russie</li>
+		<li>Cuir de loup </li>
+		<li>Fond en caoutchouc</li>
+		<li>Couleur bleu foncé</li>
+	</ul>
+	{{ object.description|linebreaks|truncatewords:30 }}
+</div>
+{% endblock %}
+
+{% block ads %}
+	{% include "ads/ad_featured_list.html" with objects=ads %}
+{% endblock %}

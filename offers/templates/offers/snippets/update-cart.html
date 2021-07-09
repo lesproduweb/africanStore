@@ -1,0 +1,29 @@
+{% load static %}
+<form method='POST' action='{% url "cart:update" %}' class="form"> {% csrf_token %}
+    <input type='hidden' name='product_id' value='{{ product.id }}' />
+    <a href="{% url 'cart:checkout' %}" class="btn btn-success btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+          <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"></path>
+        </svg>
+        Commander
+    </a>
+    {% if in_cart %}
+        <button type='submit' class="btn btn-warning btn-sm">
+            <img src="{% static 'img/icons/remove_shopping_card/1x/outline_remove_shopping_cart_black_24dp.png' %}">
+            Retirer
+        </button>
+    {% else %}
+        {% if product in cart.products.all %}
+        <button type='submit' class='btn btn-danger'>
+
+            <img src="{% static 'img/icons/remove_card_shoppin_white/1x/outline_remove_shopping_cart_white_24dp.png' %}">
+            Retirer?
+        </button>
+        {% else %}
+            <button type='submit'  class='btn btn-success'>
+                <img src="{% static 'img/icons/add_card_shopping/1x/outline_add_shopping_cart_white_24dp.png' %}">
+                Ajouter a la carte
+            </button>
+        {% endif %}
+    {% endif %}
+</form>

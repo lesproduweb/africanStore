@@ -1,0 +1,49 @@
+{% load static %}
+
+
+
+<a href="{{ instance.get_absolute_url }}" class="text-dark text-decoration-none" >
+  <div class="row border border-secondary rounded">
+    <div class="col-6 col-sm-auto m-0 p-0">
+      <img class="img-fluid" src="{{ instance.image.url }}" alt="{{ instance.title }}" style="max-height: 200px">
+    </div>
+    <div class="col-6 col-sm d-flex flex-column justify-content-between">
+      <p>
+          <b >{{ instance.title }}</b>
+          <br>
+          <b>{{ instance.price }} DT</b>
+      </p>
+<!--      <p class="text-muted">{{ instance.description|truncatewords:4 }}</p>-->
+
+<!--      <p > include "accounts/profil.html" with profil=instance.user.image</p>-->
+
+      <p >{{ instance.timestamp }}</p>
+        <div class="d-flex m-2" style="width: 40px;height: 40px;position: absolute;bottom: 0;right: 0;">
+<!--            {{ instance.account.user.username }}-->
+            {% if instance.account.image %}
+                <img class="img-fluid rounded-circle" src="{{ instance.account.image.url }}" alt="{{ instance.title }}">
+            {% else %}
+                <img class="img-fluid rounded-circle" src="{% static 'img/icons/profil/profil.png' %}" alt="{{ instance.title }}">
+            {% endif %}
+        </div>
+    </div>
+  </div>
+</a>
+<!--<div class="col-6 col-sm-4 col-md-3 " >-->
+<!--         <a href="{{ instance.get_absolute_url }}" class="text-decoration-none" >-->
+<!--            <div class="m-2 bg-light border d-flex flex-column align-items-center justify-content-around" style=" min-width: 165px; min-height: 275px">-->
+
+<!--                <div class="d-flex justify-content-center align-items-center">-->
+<!--                    {% if instance.image %}-->
+<!--                        <img src="{{ instance.image.url }}" alt="{{ instance.title }}" class="img-fluid" style="max-height: 170px">-->
+<!--                    {% endif %}-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <span> {{ instance.title|linebreaks|truncatewords:5 }} </span>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <span>  </span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--         </a>-->
+<!--    </div>-->

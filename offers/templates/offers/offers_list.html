@@ -1,0 +1,25 @@
+{% extends "list_base.html" %}
+{% load static %}
+
+{% block content_list %}
+<section class="section-name padding-y-sm">
+	<div class="container">
+		<header class="section-heading my-2">
+			<h3 class="section-title"> Bon Plan</h3>
+		</header>
+
+		<div class="my-2 row">
+				<div class="col-12 col-sm-7 ">
+					<div class="row">
+						{% for obj in object_list %}
+						<div class="col-12 mt-2">
+							{% include "offers/snippets/card.html" with instance=obj %}
+						</div>
+						{% endfor %}
+					</div>
+
+				</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

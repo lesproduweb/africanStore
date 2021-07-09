@@ -1,0 +1,17 @@
+
+     <a href="{{ instance.get_absolute_url }}" class="text-decoration-none" >
+        <div class="m-2 bg-light border d-flex flex-column align-items-center justify-content-around" style=" min-width: 200px; min-height: 300px">
+
+            <div class="d-flex justify-content-center align-items-center">
+                {% if instance.image %}
+                    <img src="{{ instance.image.url }}" alt="{{ instance.title }}" class="img-fluid">
+                {% endif %}
+            </div>
+            <div>
+                <span> {{ instance.title|linebreaks|truncatewords:5 }} </span>
+            </div>
+            <div>
+                <label class="text-muted">{{ instance.timestamp|date:'d F Y' }}</label>
+            </div>
+        </div>
+     </a>

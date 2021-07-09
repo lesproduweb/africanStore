@@ -1,13 +1,17 @@
 {% load static %}
 
 {% url 'home' as home_url %}
-{% url 'products:list' as products_list_url %}
+{% url 'freeProducts:list' as freeProducts_list_url %}
+{% url 'offers:list' as offers_list_url %}
+{% url 'freeProducts:featured' as freeProducts_featured_url %}
+{% url 'products:featured' as products_featured_list_url %}
 {% url 'products:featured' as products_featured_list_url %}
 {% url 'ads:list' as ads_list_url %}
 {% url 'ads:featured' as ads_featured_list_url %}
 {% url 'login' as login_url %}
 {% url 'register' as register_url %} 
 {% url 'contact' as contact_url %}
+{% url 'join_us'  as join_us_url %}
 
 
 
@@ -21,8 +25,8 @@
                 <div class="col-10 col-sm-8 m-0 p-0">
                     {% include 'base/logo.html' %}
                 </div>
-                <div class="col-2">
-
+                <div class="col-2 text-light">
+<!--                    Enchère-->
                 </div>
             </div>
         </div>
@@ -49,11 +53,9 @@
 <div class="row fixed-top" style="margin-top: 55px;  ">
     <div class="col-12  col-sm-12  mx-0 px-0 navbar-light" >
         <ul class="navbar-nav  bg-light d-flex flex-row justify-content-center justify-content-sm-start m-0">
-            <li class="nav-item px-2 px-sm-4 {% if request.path ==  home_url %}active{% endif %}" >
-                <a class="nav-link px-1" href="{% url 'home' %}">Acceuil</a>
-            </li>
-            <li class="nav-item px-2 px-sm-4 " >
-                <a class="nav-link px-1" href="#">Bon Plan</a>
+
+            <li class="nav-item px-2 px-sm-4 {% if request.path ==  offers_list_url %}active {% endif %} " >
+                <a class="nav-link px-1" href="{% url 'offers:list' %}">Bon Plan</a>
             </li>
             <li class="nav-item px-2 px-sm-4 {% if request.path ==  products_featured_list_url %}active {% endif %}">
                 <a class="nav-link px-1" href="{% url  'products:featured' %}">Boutique</a>
@@ -61,6 +63,9 @@
             <li class="nav-item px-2 px-sm-4 {% if request.path ==  ads_list_url %}active{% endif %}" >
                 <a class="nav-link px-1" href="{% url  'ads:list' %}">Annonces</a>
             </li>
+            <div class="nav-item px-2 px-sm-4 {% if request.path ==  join_us_url %}active{% endif %}" >
+                <a class="nav-link px-1" href="{% url 'join_us' %}">Rejoignez nous</a>
+            </div>
         </ul>
 
     </div>

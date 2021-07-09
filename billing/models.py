@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 
 from accounts.models import GuestEmail
 
+from accounts.models import Account
+
 User = settings.AUTH_USER_MODEL
 
 # abc@teamcfe.com -->> 1000000 billing profiles
@@ -32,6 +34,7 @@ class BillingProfileManager(models.Manager):
 
 
 class BillingProfile(models.Model):
+    account = models.OneToOneField(Account, null=True, blank=True, on_delete=models.CASCADE)
     user        = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     email       = models.EmailField()
     active      = models.BooleanField(default=True)

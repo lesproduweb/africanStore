@@ -1,4 +1,4 @@
-  <div class="col-12 col-sm-6 col-md-6 " >
+  <div class="col-12 col-sm-6 col-md-6 ">
      <a href="{{ instance.get_absolute_url }}" class="text-decoration-none" >
         <div class="m-2 bg-light border d-flex flex-column align-items-center justify-content-around" style=" min-width: 200px; min-height: 300px">
 
@@ -11,7 +11,7 @@
                 <span> {{ instance.title|linebreaks|truncatewords:5 }} </span>
             </div>
             <div>
-                <label class="text-muted">{{ instance.timestamp }}</label>
+                <label class="text-muted">{{ instance.timestamp|date:'d F Y' }}</label>
             </div>
         </div>
      </a>

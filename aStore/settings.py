@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'ads',
     'billing',
     'carts',
+    # 'freeProducts',
+    'offers',
     'orders',
     'products',
     'search',
@@ -71,6 +73,7 @@ TEMPLATES = [
                 os.path.join(BASE_DIR, 'ads','templates'),
                 os.path.join(BASE_DIR, 'addresses','templates'),
                 os.path.join(BASE_DIR, 'search','templates','search'),
+                os.path.join(BASE_DIR, 'offers','templates'),
                 ],
         'APP_DIRS': True,
         'OPTIONS': {

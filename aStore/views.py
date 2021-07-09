@@ -81,3 +81,6 @@ def contact_page(request):
     #     print(request.POST.get('email'))
     #     print(request.POST.get('content'))
     return render(request, "contact/view.html", context)
+def join_us_page(request):
+
+    return render(request, "join_us.html", {})

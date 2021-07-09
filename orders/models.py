@@ -6,6 +6,9 @@ from addresses.models import Address
 from billing.models import BillingProfile
 from carts.models import Cart
 from aStore.utils import unique_order_id_generator
+
+from accounts.models import Account
+
 ORDER_STATUS_CHOICES = (
     ('created', 'Created'),
     ('paid', 'Paid'),
@@ -32,7 +35,8 @@ class OrderManager(models.Manager):
 
 # Random, Unique
 class Order(models.Model):
-    billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.CASCADE)
+    # billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, null=True, blank=True, on_delete=models.CASCADE)
     order_id        = models.CharField(max_length=120, blank=True) # AB31DE3
     # billing_profile = ?
     # shipping_address

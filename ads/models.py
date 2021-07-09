@@ -8,6 +8,9 @@ from django.dispatch import receiver
 
 from aStore.utils import unique_slug_generator
 
+from accounts.models import Account
+
+
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
     name, ext = os.path.splitext(base_name)
@@ -62,6 +65,7 @@ class AdManager(models.Manager):
 
 
 class Ad(models.Model):
+    account = models.ForeignKey(Account,null=True, on_delete=models.CASCADE)
     title           = models.CharField(max_length=120)
     slug            = models.SlugField(blank=True, unique=True)
     description     = models.TextField()

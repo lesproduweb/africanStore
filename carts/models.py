@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-# from django.conf import settings
+from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save, post_save, m2m_changed
 from django.contrib.auth.models import User
@@ -8,8 +8,9 @@ from django.contrib.auth.models import User
 
 from products.models import Product
 
+from accounts.models import Account
 
-# User = settings.AUTH_USER_MODEL
+User = settings.AUTH_USER_MODEL
 
 class CartManager(models.Manager):
     def new_or_get(self, request):
@@ -44,6 +45,7 @@ class CartManager(models.Manager):
 
 
 class Cart(models.Model):
+    account = models.ForeignKey(Account, null=True, blank=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     products    = models.ManyToManyField(Product, blank=True)
     subtotal    = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
