@@ -13,14 +13,10 @@
           <small class="text-success" style="position: relative;top: -10px; left: -2px;"> {{ request.session.cart_items }} </small>
 <!--          <small class="text-success m-0 p-0" style="position: relative;top: -10px; left: -2px; font-size: 100px;"> . </small>-->
         </a>
-        <!--    <span class="text-light  px-sm-3">|</span   >-->
         <div class="d-flex flex-column align-items-center p-1 m-0">
             <a class="nav-link  {% if request.path == login_url %}active{% endif %} text-light p-0" href="{{ logout_url }}">
               <img class="" src="{% static 'img/icons/account/2x/outline_person_outline_white_24dp.png' %}">
             </a>
-        <!--            <span class="text-light px-1" >-->
-        <!--                {{ request.user }}-->
-        <!--            </span>-->
         </div>
     </div>
 {% else %}

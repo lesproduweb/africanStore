@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
-from django.contrib.auth import get_user_model
 
 # Create your models here.
 from aStore.utils import upload_image_path
@@ -23,10 +23,12 @@ class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
+    phoneNumber = models.CharField(validators = [phoneNumberRegex], max_length = 16, unique = True, default="+216")
     # addresse =  models.ForeignKey(Address, on_delete=models.CASCADE)
 
     active      = models.BooleanField(default=True)
-    timestamp   = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username

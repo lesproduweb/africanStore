@@ -1,0 +1,51 @@
+{% load static %}
+
+
+
+
+  <div class="row">
+    <div class="col-auto col-sm-auto m-0 p-0">
+      <img class="img-fluid" src="{{ instance.image.url }}" alt="{{ instance.title }}" style="max-height: 500px">
+    </div>
+
+    <div class="col col-sm d-flex flex-column justify-content-between">
+        <div>
+            <p>
+                <b >{{ instance.title }}</b>
+                <br>
+                <b>{{ instance.price }} DT</b>
+            </p>
+            <p class="text-muted">Publié le : {{ instance.timestamp }}</p>
+        </div>
+        <hr class="my-3">
+        <div>
+            <p> <b >Catégorie </b> : <span class="text-muted"> {{ instance.category }}</span> </p>
+            <p> <b >Lieu </b> : <span class="text-muted"> SFAX </span> </p>
+        </div>
+        <hr class="mb-3">
+        <div class="col col-sm d-flex flex-row justify-content-arround align-items-center">
+            <div class="d-flex justify-content-between align-items-center m-2 " style="width: 40px;height: 40px;">
+                {% if instance.account.image %}
+                    <img class="img-fluid rounded-circle" src="{{ instance.account.image.url }}" alt="{{ instance.title }}">
+                {% else %}
+                    <img class="img-fluid rounded-circle" src="{% static 'img/icons/profil/profil.png' %}" alt="{{ instance.title }}">
+                {% endif %}
+            </div>
+            <p>
+                <b class="mx-1">{{ instance.account.user.username }}, </b> <br>
+                <p class="mx-1" >membre depuis: <span class="text-muted mx-3">  {{ instance.account.timestamp }}</span></p>
+            </p>
+        </div>
+        <form method="post" action="">
+            <button class="btn btn-success btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Voir le contact
+            </button>
+        </form>
+        <div class="collapse" id="collapseExample">
+          <p class="card card-body">
+              {{ instance.account.phoneNumber }}
+          </p>
+        </div>
+    </div>
+
+  </div>

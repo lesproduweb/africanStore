@@ -14,12 +14,14 @@ from aStore.utils import upload_image_path, get_filename_ext
 from accounts.models import Account
 
 User = settings.AUTH_USER_MODEL
-TYPES_OFFERS_CATEGORY = (
+TYPES_OFFERS = (
     ('free', 'Free'),
     ('shop', 'Shop'),
 )
-TYPES_OFFERs_CONDITION =("bon état")
-
+TYPES_OFFERS_CONDITION =(("bon état", "Bon état"),)
+TYPES_OFFERS_CATEGORY = (
+    ('maison', 'Maison'),
+)
 
 class OfferQuerySet(models.query.QuerySet):
     def active(self):
@@ -55,8 +57,8 @@ class OfferManager(models.Manager):
             return qs.first()
         return None
 
-    def get_by_category(self, category):
-        qs = self.get_queryset().filter(category=category)
+    def get_by_types(self, types):
+        qs = self.get_queryset().filter(types=types)
         return qs
 
     def search(self, query):
@@ -64,15 +66,16 @@ class OfferManager(models.Manager):
 
 
 class Offer(models.Model):
-    account = models.OneToOneField(Account,null=True, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account,null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=20, default=50)
+    types = models.CharField(max_length=120, default='shop', choices=TYPES_OFFERS)
     category = models.CharField(max_length=120, default='shop', choices=TYPES_OFFERS_CATEGORY)
     user        = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
     description = models.TextField()
-    condition = models.CharField(max_length=120, default='shop', choices=TYPES_OFFERS_CATEGORY)
+    condition = models.CharField(max_length=120, default='shop', choices=TYPES_OFFERS_CONDITION)
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     slug = models.SlugField(blank=True, unique=True)

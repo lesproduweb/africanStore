@@ -12,11 +12,11 @@ class OfferFeaturedListView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         request = self.request
-        return Offer.objects.get_by_category("shop").featured()
+        return Offer.objects.get_by_types("shop").featured()
 
 
 class OfferFeaturedDetailView(DetailView):
-    queryset = Offer.objects.get_by_category("shop").featured()
+    queryset = Offer.objects.get_by_types("shop").featured()
     template_name = "offers/featured_detail_offers.html"
 
 
@@ -30,11 +30,11 @@ class OfferListView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         request = self.request
-        return Offer.objects.get_by_category("shop")
+        return Offer.objects.get_by_types("shop")
 
 
 class OfferDetailSlugView(DetailView):
-    queryset = Offer.objects.get_by_category("shop")
+    queryset = Offer.objects.get_by_types("shop")
     template_name = "offers/offers_detail.html"
 
     def get_context_data(self, *args, **kwargs):
